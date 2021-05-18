@@ -13,9 +13,11 @@ body {
 }
 
 #canvas {
-    background-color: #40752d;
-    height          : 930px;
-    max-width       : 1500px;
+    background-image : url(assets/background.png);
+    background-size  : 100% 50%;
+    background-repeat: repeat-y;
+    width            : 1200px;
+    height           : 650px;
 }
 
 .cp_intro,
@@ -73,7 +75,6 @@ li {
 .space-box {
     justify-content: space-around;
     display        : flex;
-    padding        : 10px 0;
 }
 
 .game-text {
@@ -86,62 +87,145 @@ li {
 }
 
 .game-box {
-    max-width       : 1500px;
+    width           : 1200px;
+    max-height      : 800px;
     margin          : 20px 10px;
     border-radius   : 5% 5% 0 0;
     background-color: #1b1b1b;
     border          : 1px solid #eee;
     color           : #dbdbdb;
+    position        : relative;
+}
+
+#startStopButton {
+    width     : 115px;
+    text-align: center;
 }
 
 .game-button {
-    background-color: #1a5209;
-    border-radius   : 10%;
+    background-color: #40752d;
+    border-radius   : 0 0 10px 10px;
     padding         : 10px 20px;
     height          : fit-content;
     margin          : auto;
+    margin-bottom   : 10px;
     cursor          : pointer;
     transition      : background-color .4s;
     font-size       : 25px;
+    user-select     : none;
 }
 
 .game-button:hover {
-    background-color: #23720a;
+    background-color: #47892f;
 }
 
-#dropdown {
-    position: absolute;
-    width   : fit-content;
-    top     : 0;
-    left    : 0;
-    display: none;
+#signButtons {
+    position     : absolute;
+    width        : fit-content;
+    display      : none;
+    padding      : 7px 7px;
+    border-radius: 10px;
+    font-weight  : 700;
+    margin-left  : 40px;
+    z-index      : 2;
 }
 
-#sign_select {
-    padding   : 7px 7px;
-    border-radius   : 10px;
-    border          : 5px solid #3d2a26;
-    text-align-last:center; 
-    font-weight: 700;
+.sign-button {
+    text-align-last : center;
+    font-size       : 20px;
+    height          : 25px;
+    width           : 25px;
+    cursor          : pointer;
+    margin          : 0 5px;
+    background-color: #1B1B1D;
+    display         : inline-block;
+    padding         : 3px 3px 0;
+    border          : #dbdbdb 1px solid;
 }
 
-#sign_select option {
-    text-align-last:center; 
+.sign-button:hover {
+    background-color: #3d3d42;
 }
 
 .game {
     position: relative;
 }
 
-#overlay {
-    width: 100%;
-    height: 100%;
-    opacity: 0.4;
+.overlay {
+    width           : 100%;
+    height          : 100%;
+    position        : absolute;
+    top             : 0;
+    left            : 0;
+    background-color: #00000000;
+    display         : none;
+    user-select     : none;
+    z-index         : 1;
+}
+
+#infoOverlay {
+    background-color: #000000d4;
+    border-radius   : 5% 5% 0 0;
+    display         : block;
+}
+
+#signOverlay {
+    background-color: #00000099;
+}
+
+#feedbackOverlay {
+    border-radius   : 10px 0 0 0;
+    position        : absolute;
+    z-index         : 1;
+    display         : none;
+    padding         : 20px 50px 20px 20px;
+    height          : 110px;
+    background-color: #c3c3c3;
+    width           : 400px;
+    padding         : 20px 120px 20px 20px;
+    bottom          : 0;
+    right           : 0;
+    color           : #000;
+    text-align      : center;
+    font-size       : 25px;
+}
+
+.cow {
     position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #000;
-    display: none;
+    bottom  : 0;
+    right   : 0;
+    z-index : 1;
+    display : none;
+}
+
+#illCow,
+#sadCow {
+    bottom: 15px;
+}
+
+#infoOverlay>div {
+    margin     : 150px auto;
+    display    : block;
+    width      : 50%;
+    padding    : 50px;
+    line-height: 2;
+}
+
+#startGameButton {
+    background-color: #40752d;
+    border-radius   : 10px 0 0 0;
+    width           : fit-content;
+    padding         : 5px 25px;
+    font-size       : 40px;
+    float           : right;
+    position        : absolute;
+    bottom          : 0;
+    right           : 0;
+    margin-bottom   : auto;
+}
+
+#startGameButton:hover {
+    background-color: #47892f;
 }
 </style>
 
@@ -150,6 +234,7 @@ li {
     <title>Reihenfolge von Rechenoperationen und Klammerregeln</title>
 </head>
     
+
 <body>
   <div class="cp_intro">
     <h1> Reihenfolge von Rechenoperationen und Klammerregeln </h1>
@@ -170,87 +255,71 @@ li {
     </ol>
     <div class="equation-box">
       <div class="equation-image">
-        <img class="equation-image" src="Rechnung01.png" width="175">
+        <img class="equation-image" src="assets/Rechnung01.png" width="175">
       </div>
       <div class="equation-image">
-        <img class="equation-image" src="Rechnung02.png" width="200">
+        <img class="equation-image" src="assets/Rechnung02.png" width="200">
       </div>
       <div class="equation-image">
-        <img class="equation-image" src="Rechnung03.png" width="230">
+        <img class="equation-image" src="assets/Rechnung03.png" width="230">
       </div>
       <div class="equation-image">
-        <img class="equation-image" src="Rechnung04.png" width="200">
+        <img class="equation-image" src="assets/Rechnung04.png" width="200">
       </div>
     </div>
   </div>
   <div class="cp_section">
     <h2>Spiel "Ich verstehe nur Bahnhof!"</h2>
     <div class="game-box">
-      <br>
-      <div class="space-box">
-        <div class="game-button" onclick="game.startPlayMode()">Start</div>
-        <div class="game-button" onclick="game.nextRound()">Next</div>
+      <div id="feedbackOverlay"></div>
+      <img class="cow" id="happyCow" src="assets/1.svg">
+      <img class="cow" id="illCow" src="assets/2.svg">
+      <img class="cow" id="sadCow" src="assets/3.svg">
+      <div class="overlay" id="infoOverlay">
+        <div>
+          <h3>
+            Die Kühe brauchen Futter!
+          </h3>
+          Verbinde die Züge mit den Stationen, um das Futter zu liefern.
+          Achtung! Pass auf die richtige Reihenfolge auf, sonst bleiben einige Kühe hungrig.
+          Wenn du zu viel Futter lieferst, dann wird das Futter schlecht.
+          <br>
+          <br>
+          Klicke auf die Stationen und wähle die passenden Rechenoperation aus.
+          Hast du alle Stationen verbunden, dann klicke auf 'Los geht's', um das Heu zu liefern.
+          <div id="startGameButton" class="game-button" onclick="game.hideStartInformation()">
+            Start ➤
+          </div>
+        </div>
       </div>
       <div class="space-box">
-        <div class="game-text"><span id="points">0</span> points</div>
-        <span class="game-text">Target: <span id="target"></span></span>
-        <span class="game-text">Result: <span id="result"></span></span>
+        <div id="startStopButton" class="game-button" onClick="game.startStopPlayMode()">Los geht's</div>
+        <div class="game-button" onclick="game.nextRound()">Nächste Runde</div>
+      </div>
+      <div class="space-box">
+        <div class="game-text"><span id="points">0</span> Punkte</div>
+        <span class="game-text">Ziel: <span id="target"></span></span>
       </div>
       <div class="game">
         <div id="canvas">
         </div>
-        <div id="overlay">
+        <div class="overlay" id="disablingActionsOverlay">
         </div>
-        <div id="dropdown" onchange="game.chooseSign()">
-          <select name="signs" id="sign_select">
-            <option value="" disabled selected>Choose sign for the station</option>
-            <option value="+">Plus ( + )</option>
-            <option value="-">Minus ( - )</option>
-            <option value="*">Multiplizieren ( * )</option>
-            <option value="/">Dividieren ( / )</option>
-        </select>
+        <div class="overlay" id="signOverlay">
+        </div>
+        <div id="signButtons">
+          <div class="sign-button" onclick="game.chooseSign('+')">+</div>
+          <div class="sign-button" onclick="game.chooseSign('-')">-</div>
+          <div class="sign-button" onclick="game.chooseSign('*')">*</div>
+          <div class="sign-button" onclick="game.chooseSign('/')">/</div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- <div id="stations"></div> -->
-</body>
-
-</html>
-<script src="main.js">
-
-</script>
 </body>
 
 </html>
 <script>
-class Train {
-    value; visible; id; eqString; position; level;
-    constructor(id, value, position, level) {
-        this.value = value;
-        this.id = id;
-        this.visible = true;
-        this.eqString = value;
-        this.position = position;
-        this.level = level;
-    }
-
-    // TODO rotation of trains
-    move(target, duration, delay) {
-        let trainSVG = SVG.find('.train-' + this.id);
-
-        trainSVG.animate(duration, delay, "now").move(target.x, target.y);
-
-        setTimeout(function () { trainSVG.show(); }, delay);
-
-        setTimeout(function () { trainSVG.hide(); }, delay + duration - 1000);
-
-        console.log("train (id=" + this.id + ") of value " + this.value + " moves, target: " + target.x + " " + target.y);
-    }
-
-}
-
 class JoinedTrain extends Train {
     sign; subTrains;
     constructor(id, position, level) {
@@ -258,11 +327,13 @@ class JoinedTrain extends Train {
         this.visible = false;
         this.sign = "";
         this.subTrains = [];
+        this.connected = false;
+        this.bigStation = false;
     }
 
     updateSign(sign) {
         this.sign = sign;
-        this.#calculate();
+        this.calculate();
     }
 
     connectWith(train1, train2) {
@@ -270,7 +341,7 @@ class JoinedTrain extends Train {
         this.subTrains.push(train1);
         this.subTrains.push(train2);
         this.visible = true;
-        this.#calculate();
+        this.calculate();
     }
 
     disconnectFrom(trainId) {
@@ -278,12 +349,12 @@ class JoinedTrain extends Train {
         if (subtrainsIds.includes(trainId)) {
             this.subTrains = this.subTrains.filter(x => x.id != trainId);
             this.sign = "";
-            this.#calculate();
+            this.calculate();
         }
     }
 
     // after station added or connecting
-    #calculate() {
+    calculate() {
         if (this.sign.match(/^[*/+-]+$/) && this.subTrains.length == 2) {
             // right appearance in the equation
             this.subTrains.sort((x, y) => x.id - y.id);
@@ -291,69 +362,222 @@ class JoinedTrain extends Train {
             // not necessary brackets removed
             let train1 = this.subTrains[0];
             let train2 = this.subTrains[1];
-            let ex1 = "(" + String(train1.eqString) + ")" + this.sign + "(" + String(train2.eqString) + ")";
-            let ex2 = "(" + String(train1.eqString) + ")" + this.sign + String(train2.eqString);
-            let ex3 = String(train1.eqString) + this.sign + "(" + String(train2.eqString) + ")";
-            let ex4 = String(train1.eqString) + this.sign + String(train2.eqString);
-            switch (eval(ex1)) {
-                case eval(ex4): this.eqString = ex4; break;
-                case eval(ex2): this.eqString = ex2; break;
-                case eval(ex3): this.eqString = ex3; break;
-                default: this.eqString = ex1;
+            if(!train1.bigStation) {
+                this.value = train2.value;
+            } else if(!train2.bigStation) {
+                this.value = train1.value;
+            } else {
+                this.value = eval(train1.value + this.sign + train2.value);
             }
         } else if (this.subTrains.length == 1) {
-            let train1 = this.subTrains[0];
-            this.eqString = train1.eqString;
+            this.value = this.subTrains[0].value;
         }
-        this.value = eval(this.eqString);
+        this.value = Math.trunc(this.value);
+    }
+}
+  
+    class Train {
+    value; visible; id; position; level;
+    constructor(id, value, position, level) {
+        this.value = value;
+        this.id = id;
+        this.visible = true;
+        this.position = position;
+        this.level = level;
+        this.finalTrain = false;
+    }
+
+    async move(target, duration, delay) {
+        let localTimeStamp = window.timestamp;
+        let trainHTML = $('.train-' + this.id)[0];
+        var trainSVG = SVG.find('.train-' + this.id);
+
+        var path = SVG.find('.path-' + this.id)[0];
+        var length = path.length();
+
+        var angle = 0;
+        var pathPoint = path.pointAt(0 * length);
+        var offsetY = pathPoint.y - 55;
+
+        trainHTML.setAttribute('transform-box', "transformAttr");
+        trainHTML.setAttribute('transform-origin', pathPoint.x + "px " + pathPoint.y + "px");
+
+        // if the rails go down 
+        if (target.y - this.position.y > 0) {
+            angle = 25;
+            offsetY = offsetY + 7;
+        } else if (target.y - this.position.y < 0) {
+            angle = 335;
+        } else {
+            angle = 0;
+            offsetY = this.position.y;
+        }
+
+        if (await this.waitForSeconds(delay, localTimeStamp)) {
+            for (var i = 0.0; i < duration; i = i + 2.5) { //adjusting pace
+                if (i / duration < 0.6) { //not going to far into the station
+                    if (await this.waitForSeconds(1, localTimeStamp)) {
+                        trainSVG.show();
+                        var x = path.pointAt(i / duration * length).x;
+                        var transformAttr = ' rotate(' + angle + '), translate(' + (x) + ', ' + offsetY + ')';
+                        trainHTML.setAttribute('transform', transformAttr);
+                    } else {
+                        trainSVG.hide();
+                        return;
+                    }
+                }
+            }
+        }
+        trainSVG.hide();
+    }
+
+    waitForSeconds(duration, localTimeStamp) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve((window.timestamp == localTimeStamp)); //action can be performed only if play mode active
+            }, duration);
+        });
     }
 }
 
+window.timestamp; // time of last play mode
+
 class Game {
     // all equations for the game TODO: Equations (numbers under 20 look still good)
-    #equations = ["3+6+1", "4+8*2", "4+8*2+1"];
+    equations = ['(15+9)+2=26',
+        '(6+13)-11=8',
+        '(1+10)*2=22',
+        '(2+12)/2=7',
+        '(9-1)+9=17',
+        '(13-10)-5=-2',
+        '(14-8)*4=24',
+        '(11-3)/4=2',
+        '(2*6)+10=22',
+        '(1*15)-7=8',
+        '(4*3)*2=24',
+        '(9*6)/3=18',
+        '(14/7)+5=7',
+        '(18/3)-2=4',
+        '(16/4)*5=20',
+        '(27/3)/3=3',
+        '6+(8+4)=18',
+        '3+(7-2)=8',
+        '5+(3*5)=20',
+        '7+(10/2)=12',
+        '10-(1+6)=3',
+        '8-(10-8)=6',
+        '15-(3*2)=9',
+        '13-(6/3)=11',
+        '5*(1+4)=25',
+        '12*(9-7)=24',
+        '5*(3*2)=30',
+        '12*(12/6)=24',
+        '12/(2+1)=4',
+        '15/(6-3)=5',
+        '24/(2*3)=4',
+        '30/(8/4)=15',
+        '11+3+7+2=23',
+        '4+1+11-5=11',
+        '5+13-3*4=5',
+        '12+2-15/5=11',
+        '13+2*4+3=24',
+        '5+10*1-7=8',
+        '10-6+3+2=9',
+        '11-4+12-9=10',
+        '(3+1)*(5+2)=21',
+        '(7+1)*(14-12)=16',
+        '7+(12/3)*2=15',
+    ];
 
     // points received in total
-    #points = 0;
+    points = 0;
 
     /* equation specific params */
 
     // possible trains
-    #trains = new Map;
+    trains = new Map;
 
     // current equation
-    #equation = "";
+    equation = "";
 
     // for each level trains assigned 
-    #levelsMap = new Map;
+    levelsMap = new Map;
 
-    #draw;
+    isPlayModeActive = false;
 
-    #rails = [];
+    cowsPositions = [];
 
-    #currentDropdownStation;
+    draw;
 
+    rails = [];
+
+    chosenStation;
+    currentLevel = 1;
     constructor() {
-        this.loadEquation(this.#equations[0]);
+        $("#infoOverlay").show();
+        this.loadEquation(this.equations[Math.round(Math.random() * this.equations.length - 1)]);
+    }
+
+    // information about game
+    hideStartInformation() {
+        $("#infoOverlay").hide();
+    }
+
+    // after final train shown feedback
+    showFeedback(result) {
+        let correctValue = eval(this.equation);
+        let text = ""
+        if (correctValue == result) {
+            text = result + " ist korrekt! Die Kühe sind froh!";
+            $("#happyCow").show();
+        } else if (correctValue > result) {
+            text = result + " ist nicht korrekt! Die Kühe sind hungrig!";
+            $("#sadCow").show();
+        } else {
+            text = result + " ist nicht korrekt! Die Heu ist verdorben geworden!";
+            $("#illCow").show();
+        }
+        $('#feedbackOverlay').text(text);
+        $("#disablingActionsOverlay").show();
+        $('#feedbackOverlay').show();
+
+        setTimeout(function () {
+            if (this.isPlayModeActive) {
+                if (correctValue == result) {
+                    this.nextRound();
+                } else {
+                    this.stopPlayMode();
+                }
+            }
+        }.bind(this), 7000);
     }
 
     // loading of an equation & drawing trains and stations
     loadEquation(equation) {
-        this.#levelsMap = new Map;
-        this.#trains = new Map;
-        this.#rails = [];
+        console.log(equation);
+
+        this.levelsMap = new Map;
+        this.trains = new Map;
+        this.rails = [];
+
+        var xOffset = 80;
+        var yOffset = 14;
+        var xInterval = 280;
+        var yInterval = 196;
 
         // positions for 0,1,2,3 trains
-        const positionsArray = [undefined, undefined, [{ x: 30, y: 0 }, { x: 330, y: 150 }, { x: 30, y: 300 }], [{ x: 30, y: 0 }, { x: 330, y: 150 }, { x: 630, y: 300 }, { x: 30, y: 300 }, { x: 330, y: 450 }, { x: 30, y: 600 }], [{ x: 30, y: 0 }, { x: 330, y: 150 }, { x: 630, y: 300 }, { x: 930, y: 450 }, { x: 30, y: 300 }, { x: 330, y: 450 }, { x: 630, y: 600 }, { x: 30, y: 600 }, { x: 330, y: 750 }, { x: 30, y: 900 }]];
+        const positionsArray = [undefined, undefined, [{ x: xInterval * 0 + xOffset, y: yInterval * 0 + yOffset }, { x: xInterval * 1 + xOffset, y: yInterval * 1.5 + yOffset }, { x: xInterval * 0 + xOffset, y: yInterval * 1 + yOffset }], [{ x: xInterval * 0 + xOffset, y: yInterval * 0 + yOffset }, { x: xInterval * 1 + xOffset, y: yInterval * 0.5 + yOffset }, { x: xInterval * 2 + xOffset, y: yInterval * 1 + yOffset }, { x: xInterval * 0 + xOffset, y: yInterval * 1 + yOffset }, { x: xInterval * 1 + xOffset, y: yInterval * 1.5 + yOffset }, { x: xInterval * 0 + xOffset, y: yInterval * 2 + yOffset }], [{ x: xInterval * 0 + xOffset, y: yInterval * 0 + yOffset }, { x: xInterval * 1 + xOffset, y: yInterval * 0.5 + yOffset }, { x: xInterval * 2 + xOffset, y: yInterval * 1 + yOffset }, { x: xInterval * 3 + xOffset, y: yInterval * 1.5 + yOffset }, { x: xInterval * 0 + xOffset, y: yInterval * 1 + yOffset }, { x: xInterval * 1 + xOffset, y: yInterval * 1.5 + yOffset }, { x: xInterval * 2 + xOffset, y: yInterval * 2 + yOffset }, { x: xInterval * 0 + xOffset, y: yInterval * 2 + yOffset }, { x: xInterval * 1 + xOffset, y: yInterval * 2.5 + yOffset }, { x: xInterval * 0 + xOffset, y: yInterval * 3 + yOffset }]];
 
         // classification to id and level for 0,1,2,3 trains (increasing from left to right)
         const classificationsArray = [undefined, undefined, [{ id: 0, level: 0 }, { id: 2, level: 0 }, { id: 1, level: 1 }], [{ id: 0, level: 0 }, { id: 3, level: 0 }, { id: 5, level: 0 }, { id: 1, level: 1 }, { id: 4, level: 1 }, { id: 2, level: 2 }], [{ id: 0, level: 0 }, { id: 4, level: 0 }, { id: 7, level: 0 }, { id: 9, level: 0 }, { id: 1, level: 1 }, { id: 5, level: 1 }, { id: 8, level: 1 }, { id: 2, level: 2 }, { id: 6, level: 2 }, { id: 3, level: 3 }]];
 
-        this.#equation = equation;
-        let eqArr = Array.from(equation).filter(x => String(x).match(/^[\d */+-]+$/));
+
+        let rightSide = equation.match(/[=].*\d+/g)[0];
+        let leftSide = equation.replace(rightSide, '');
+        let eqArr = leftSide.match(/\d+/g);
         let eqNumbers = eqArr.filter(x => !isNaN(Number(x)));
         let startTrainsNumber = eqNumbers.length;
-
+        this.equation = leftSide;
         let positionsOfTrains = positionsArray[startTrainsNumber]; // TODO finding best positions on canvas for trains + stations(joined trains)
         let classification = classificationsArray[startTrainsNumber];
 
@@ -367,63 +591,124 @@ class Game {
 
             if (i < startTrainsNumber) {
                 train = new Train(id, eqNumbers[i], positionsOfTrains[id], level);
-                this.#trains.set(id, train);
+                this.trains.set(id, train);
             } else {
                 train = new JoinedTrain(id, positionsOfTrains[id], level);
-                this.#trains.set(id, train);
+                this.trains.set(id, train);
             }
 
-            if (this.#levelsMap.has(level)) {
-                let oldLevelArray = this.#levelsMap.get(level);
+            if (this.levelsMap.has(level)) {
+                let oldLevelArray = this.levelsMap.get(level);
                 oldLevelArray.push(train);
-                this.#levelsMap.set(level, oldLevelArray.sort((x, y) => x.id - y.id));
+                this.levelsMap.set(level, oldLevelArray.sort((x, y) => x.id - y.id));
             } else {
-                this.#levelsMap.set(level, [train]);
+                this.levelsMap.set(level, [train]);
             }
         }
-        this.#drawElements();
+        this.drawElements();
     }
 
     // when on change event triggered
-    chooseSign() {
-        $("#dropdown").hide();
-        $("#overlay").hide();
+    chooseSign(sign) {
+        $("#signButtons").hide();
+        $("#signOverlay").hide();
 
-        this.#currentDropdownStation.updateSign($("#dropdown :selected").val());
-        let trainsArr = Array.from(this.#trains.values());
+        this.chosenStation.updateSign(sign);
+        this.setStationBlur(this.chosenStation.id, false);
+        let trainsArr = Array.from(this.trains.values());
         let stations = trainsArr.filter(x => x instanceof (JoinedTrain));
-        this.#drawStations(stations);
+
+        this.drawStations(stations);
     }
 
-    #showDropdown(station) {
-        $("#dropdown").css("top", station.position.y + 50);
-        $("#dropdown").css("left", station.position.x - 95);
-        this.#currentDropdownStation = station;
+    showSignButtons(station) {
+
+        $("#signButtons").css("top", station.position.y + 60);
+        $("#signButtons").css("left", station.position.x - 100);
+        this.chosenStation = station;
 
         // overlay for "forcing" user to choose sign and prevent problems when the chosen station is again small
-        $("#dropdown").show();
-        $("#dropdown select").val("");
-        $("#overlay").show();
+        $("#signButtons").show();
+        $("#signOverlay").show();
     }
 
-    #connectTrains(targetTrainId) {
-        let targetTrain = this.#trains.get(targetTrainId);
+    setStationBlur(id, on) {
+        if (on) {
+
+            SVG.find('.small-station-' + id).css({
+                transition: 'filter 1s easeIn',
+                filter: 'drop-shadow(4px 4px 10px #ff0000) drop-shadow(-4px -4px 10px #ff0000)'
+            });
+
+            SVG.find('.big-station-' + id).css({
+                transition: 'filter 1s',
+                filter: 'drop-shadow(4px 4px 10px #ff0000) drop-shadow(-4px -4px 10px #ff0000)'
+            });
+
+        } else {
+            SVG.find('.small-station-' + id).css('filter', null);
+            SVG.find('.big-station-' + id).css('filter', null);
+        }
+
+    }
+    checkUnconnectedTrains(station) {
+        let unconnectedStations = Array.from(this.trains.values());
+
+        unconnectedStations = unconnectedStations.filter(
+            i => (i.connected == false || (i.bigStation == true && i.sign == "")));
+        if (station == undefined) {
+            //final station
+            station = this.trains.get(this.levelsMap.size - 1);
+            unconnectedStations = unconnectedStations.filter(unconnectedStation => ((unconnectedStation.level < station.level) || station.finalTrain));
+        } else {
+            unconnectedStations = unconnectedStations.filter(unconnectedStation => (unconnectedStation.level < station.level));
+        }
+        if (unconnectedStations.length > 0) {
+            let minLevel = Math.min(...unconnectedStations.map(unconnectedStation => unconnectedStation.level));
+            console.log(minLevel);
+
+            //console.log(unconnectedStations);
+
+            //console.log(minLevel);
+            unconnectedStations = unconnectedStations.filter(unconnectedStation => unconnectedStation.level == minLevel);
+            unconnectedStations.forEach(unconnectedStation => this.setStationBlur(unconnectedStation.id, true));
+            return true;
+        }
+        else return false;
+    }
+    connectTrains(station) {
+
+        if (this.checkUnconnectedTrains(station)) {
+            return;
+        }
+        this.levelsMap.get(station.level).forEach(stationAtLevel => {
+            if (!stationAtLevel.connected) {
+                this.connectStation(stationAtLevel)
+            }
+        }
+        );
+        this.connectStation(station)
+        this.showSignButtons(station);
+    }
+    connectStation(station) {
+        let targetTrainId = station.id;
+        let targetTrain = this.trains.get(targetTrainId);
         let targetLevel = targetTrain.level;
 
-        let indexOfTargetTrain = this.#levelsMap.get(targetLevel).indexOf(targetTrain);
+        let indexOfTargetTrain = this.levelsMap.get(targetLevel).indexOf(targetTrain);
 
         // get 2 adjacent trains from the previous level
-        let adjacentTrains = this.#levelsMap.get(targetLevel - 1).filter((x, index) => (index == indexOfTargetTrain || index == indexOfTargetTrain + 1));
+        let adjacentTrains = this.levelsMap.get(targetLevel - 1).filter((x, index) => (index == indexOfTargetTrain || index == indexOfTargetTrain + 1));
 
         // for each train from the target level disconnect 2 adjacent (to the target train) trains
-        this.#levelsMap.get(targetLevel).forEach(train => {
+        this.levelsMap.get(targetLevel).forEach(train => {
             train.disconnectFrom(adjacentTrains[0].id);
             SVG.find('.rails-' + adjacentTrains[0].id + '-' + train.id).remove();
-            this.#rails = this.#rails.filter(x => !((x.startId == adjacentTrains[0].id)))
+            this.rails = this.rails.filter(x => !((x.startId == adjacentTrains[0].id)))
 
             train.disconnectFrom(adjacentTrains[1].id);
             SVG.find('.rails-' + adjacentTrains[1].id + '-' + train.id).remove();
-            this.#rails = this.#rails.filter(x => !((x.startId == adjacentTrains[1].id)))
+            this.rails = this.rails.filter(x => !((x.startId == adjacentTrains[1].id)))
         })
 
         // connect target train with 2 adjacent trains
@@ -433,50 +718,71 @@ class Game {
         let rails = [{ start: { x: adjacentTrains[0].position.x + 50, y: adjacentTrains[0].position.y }, target: targetTrain.position, startId: adjacentTrains[0].id, targetId: targetTrain.id }, { start: { x: adjacentTrains[1].position.x + 50, y: adjacentTrains[1].position.y }, target: targetTrain.position, startId: adjacentTrains[1].id, targetId: targetTrainId }];
 
         // if the rails aim to final station
-        if (this.#levelsMap.size - 1 == targetTrainId) {
+        if (this.levelsMap.size - 1 == targetTrainId) {
             rails.push({ start: targetTrain.position, target: { x: targetTrain.position.x + 500, y: targetTrain.position.y }, startId: targetTrainId, targetId: targetTrainId })
         }
 
-        this.#drawRails(rails);
+        this.drawRails(rails);
 
-        this.#rails = this.#rails.concat(rails).flat();
+        this.rails = this.rails.concat(rails).flat();
 
         // draw stations new
-        let trainsArr = Array.from(this.#trains.values());
+        let trainsArr = Array.from(this.trains.values());
         let stations = trainsArr.filter(x => x instanceof (JoinedTrain));
-        this.#drawStations(stations);
+        this.drawStations(stations);
+        station.connected = true;
     }
 
-    #drawElements() {
-        this.#clearCanvas();
-        this.#draw = SVG().addTo('#canvas').size('100%', '100%');
+    drawElements() {
+        this.clearCanvas();
+        this.draw = SVG().addTo('#canvas').size('100%', '100%');
 
-        let trainsArr = Array.from(this.#trains.values());
-        let startTrains = trainsArr.filter(x => x.value);
+        let trainsArr = Array.from(this.trains.values());
+        let startTrains = trainsArr.filter(x => (x.value !== undefined && x.value !== NaN));
         let stations = trainsArr.filter(x => x instanceof (JoinedTrain));
 
-        this.#drawRails(this.#rails);
+        this.drawRails(this.rails);
 
-        this.#drawTrains(startTrains);
+        this.drawTrains(startTrains);
 
-        this.#drawStations(stations);
+        this.drawStations(stations);
+
+        this.drawCows();
     }
 
-    #drawRails(rails) {
+    drawCows() {
+        let cowSVG = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="50px" height="35px" viewBox="-0.5 -0.5 445 344"><defs/><g><path d="M 419.32 218.52 L 432 230" fill="none" stroke="#f5f5f5" stroke-width="12" stroke-miterlimit="10" pointer-events="stroke"/><path d="M 132 90 Q 332 90 332 230 Q 332 370 132 370 Z" fill="#f5f5f5" stroke="none" transform="rotate(270,232,230)" pointer-events="all"/><path d="M 132 0 Q 158 0 158 45 Q 158 90 132 90 Q 145 45 132 0 Z" fill="#ffce9f" stroke="none" transform="translate(145,0)scale(-1,1)translate(-145,0)" pointer-events="all"/><path d="M 66 2 Q 92 2 92 47 Q 92 92 66 92 Q 79 47 66 2 Z" fill="#ffce9f" stroke="none" pointer-events="all"/><ellipse cx="36" cy="58" rx="30" ry="20" fill="#4a4a4a" stroke="none" transform="rotate(25,36,58)" pointer-events="all"/><ellipse cx="112" cy="131" rx="80" ry="99" fill="#f5f5f5" stroke="none" pointer-events="all"/><path d="M 57 85 C 37 85 32 120 48 127 C 32 142.4 50 176 63 162 C 72 190 102 190 112 162 C 132 162 132 134 119.5 120 C 132 92 112 64 94.5 78 C 82 57 62 57 57 85 Z" fill="#4a4a4a" stroke="none" pointer-events="all"/><ellipse cx="112" cy="193" rx="80" ry="43" fill="#ffcce6" stroke="none" pointer-events="all"/><ellipse cx="79" cy="185" rx="13" ry="13" fill="#000000" stroke="none" pointer-events="all"/><ellipse cx="145" cy="185" rx="13" ry="13" fill="#000000" stroke="none" pointer-events="all"/><ellipse cx="79" cy="110" rx="13" ry="20" fill="#000000" stroke="#000000" stroke-width="2" pointer-events="all"/><ellipse cx="145" cy="110" rx="13" ry="20" fill="#000000" stroke="#000000" stroke-width="2" pointer-events="all"/><ellipse cx="182" cy="56" rx="30" ry="20" fill="#f5f5f5" stroke="none" transform="rotate(325,182,56)" pointer-events="all"/><path d="M 227 171.5 C 207 171.5 202 185 218 187.7 C 202 193.64 220 206.6 233 201.2 C 242 212 272 212 282 201.2 C 302 201.2 302 190.4 289.5 185 C 302 174.2 282 163.4 264.5 168.8 C 252 160.7 232 160.7 227 171.5 Z" fill="#4a4a4a" stroke="none" pointer-events="all"/><path d="M 122.08 255.8 C 102.08 255.8 97.08 273.3 113.08 276.8 C 97.08 284.5 115.08 301.3 128.08 294.3 C 137.08 308.3 167.08 308.3 177.08 294.3 C 197.08 294.3 197.08 280.3 184.58 273.3 C 197.08 259.3 177.08 245.3 159.58 252.3 C 147.08 241.8 127.08 241.8 122.08 255.8 Z" fill="#4a4a4a" stroke="none" transform="rotate(38,147.08,273.3)" pointer-events="all"/><path d="M 264.74 248.74 C 244.74 248.74 239.74 273.31 255.74 278.23 C 239.74 289.04 257.74 312.63 270.74 302.8 C 279.74 322.46 309.74 322.46 319.74 302.8 C 339.74 302.8 339.74 283.14 327.24 273.31 C 339.74 253.65 319.74 233.99 302.24 243.82 C 289.74 229.08 269.74 229.08 264.74 248.74 Z" fill="#4a4a4a" stroke="none" transform="rotate(-60,289.74,273.31)" pointer-events="all"/><path d="M 398.72 225.86 Q 438.72 225.86 438.72 239.63 Q 438.72 253.4 398.72 253.4 Z" fill="#4a4a4a" stroke="none" transform="rotate(130,418.72,239.63)" pointer-events="all"/><path d="M 365.28 312.8 L 406.9 255.82" fill="none" stroke="#f5f5f5" stroke-width="12" stroke-miterlimit="10" pointer-events="stroke"/><path d="M 104 282 Q 140 282 140 312 Q 140 342 104 342 Z" fill="#ffce9f" stroke="none" transform="rotate(270,122,312)" pointer-events="all"/><path d="M 170 282 Q 206 282 206 312 Q 206 342 170 342 Z" fill="#ffce9f" stroke="none" transform="rotate(270,188,312)" pointer-events="all"/><path d="M 324 282 Q 360 282 360 312 Q 360 342 324 342 Z" fill="#ffce9f" stroke="none" transform="rotate(270,342,312)" pointer-events="all"/><path d="M 258 282 Q 294 282 294 312 Q 294 342 258 342 Z" fill="#ffce9f" stroke="none" transform="rotate(270,276,312)" pointer-events="all"/></g></svg>';
+        let group = this.draw.group();
+        let eqValue = eval(this.equation);
+        if (this.cowsPositions.length != eqValue) {
+            for (let j = 0; j < eqValue; j++) {
+                this.cowsPositions.push({ 'x': Math.floor(700 + 450 * Math.random()), 'y': Math.floor(5 + 100 * Math.random()) });
+            }
+        }
+        // drawing hay
+        for (let j = 0; j < eqValue; j++) {
+            let cowPosition = this.cowsPositions[j];
+            group.add(SVG(cowSVG).move(cowPosition.x, cowPosition.y))
+        }
+    }
+
+    drawRails(rails) {
         for (let i = 0; i < rails.length; i++) {
             let start = rails[i].start;
             let target = rails[i].target;
             let startId = rails[i].startId;
             let targetId = rails[i].targetId;
-            let group = this.#draw.group();
+            let group = this.draw.group();
             group.addClass('rails-' + startId + '-' + targetId);
-            group.path('M' + start.x + ' ' + (start.y + 15) + ' S ' + target.x / 1.15 + ' ' + (target.y + 15) + ', ' + target.x + ' ' + (target.y + 15)).stroke({ width: 20, color: '#4d4b42', linecap: "round" }).fill('none');
-            group.path('M' + start.x + ' ' + (start.y + 15) + ' S ' + target.x / 1.15 + ' ' + (target.y + 15) + ', ' + target.x + ' ' + (target.y + 15)).stroke({ width: 30, color: '#4d4b42', linecap: "round", opacity: 0.7 }).fill('none');
-            group.path('M' + start.x + ' ' + (start.y + 15) + ' S ' + target.x / 1.15 + ' ' + (target.y + 15) + ', ' + target.x + ' ' + (target.y + 15)).stroke({ width: 37, color: '#4d4b42', linecap: "round", opacity: 0.4 }).fill('none');
-            group.path('M' + start.x + ' ' + (start.y + 15) + ' S ' + target.x / 1.15 + ' ' + (target.y + 15) + ', ' + target.x + ' ' + (target.y + 15)).stroke({ width: 39, color: '#4d4b42', linecap: "round", opacity: 0.1 }).fill('none');
-            group.path('M' + start.x + ' ' + (start.y + 15) + ' S ' + target.x / 1.15 + ' ' + (target.y + 15) + ', ' + target.x + ' ' + (target.y + 15)).stroke({ width: 20, color: "#000000", dasharray: '1 4' }).fill('none');
-            group.path('M' + start.x + ' ' + (start.y + 10) + ' S ' + target.x / 1.15 + ' ' + (target.y + 10) + ', ' + target.x + ' ' + (target.y + 10)).stroke({ width: 2, color: "#000000", linecap: "round" }).fill('none')
-            group.path('M' + start.x + ' ' + (start.y + 20) + ' S ' + target.x / 1.15 + ' ' + (target.y + 20) + ', ' + target.x + ' ' + (target.y + 20)).stroke({ width: 2, color: "#000000" }).fill('none');
+            group.id('rails-' + startId);
+            group.path('M' + (start.x + 35) + ' ' + (start.y + 35) + ', ' + target.x + ' ' + (target.y + 35)).stroke({ width: 10, color: '#4d4b42', linecap: "round" }).fill('none');
+            group.path('M' + (start.x + 35) + ' ' + (start.y + 35) + ', ' + target.x + ' ' + (target.y + 35)).stroke({ width: 20, color: '#4d4b42', linecap: "round", opacity: 0.7 }).fill('none');
+            group.path('M' + (start.x + 35) + ' ' + (start.y + 35) + ', ' + target.x + ' ' + (target.y + 35)).stroke({ width: 27, color: '#4d4b42', linecap: "round", opacity: 0.4 }).fill('none');
+            group.path('M' + (start.x + 35) + ' ' + (start.y + 35) + ', ' + target.x + ' ' + (target.y + 35)).stroke({ width: 29, color: '#4d4b42', linecap: "round", opacity: 0.1 }).fill('none');
+            group.path('M' + (start.x + 35) + ' ' + (start.y + 35) + ', ' + target.x + ' ' + (target.y + 35)).stroke({ width: 13, color: "#000000", dasharray: '2 4' }).fill('none');
+            group.path('M' + (start.x + 35) + ' ' + (start.y + 40) + ', ' + target.x + ' ' + (target.y + 40)).stroke({ width: 2, color: "#000000", linecap: "round" }).fill('none').addClass("path-" + startId);
+            group.path('M' + (start.x + 35) + ' ' + (start.y + 30) + ', ' + target.x + ' ' + (target.y + 30)).stroke({ width: 2, color: "#000000" }).fill('none');
+            group.path('M' + (start.x + 35) + ' ' + (start.y + 25) + ', ' + target.x + ' ' + (target.y + 25)).stroke({ width: 1, color: "transparent", linecap: "round" }).fill('none');
 
             SVG.find('.station-' + targetId).before(group);
             SVG.find('.station-' + startId).before(group);
@@ -485,69 +791,77 @@ class Game {
         }
     }
 
-    // TODO drawing trains 
-    #drawTrains(trains) {
-        // drawing loks (https://svgjs.com/docs/3.0/getting-started/)
+    drawTrains(trains) {
+        let lokSVG = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="155px" height="53px" viewBox="-0.5 -0.5 275 95"><defs/><g><rect x="189.5" y="29" width="8" height="13" rx="1.2" ry="1.2" fill="#000000" stroke="none" pointer-events="all"/><rect x="118" y="0" width="73" height="10" rx="5" ry="5" fill="#333333" stroke="none" pointer-events="all"/><rect x="241.5" y="68" width="14" height="24" fill="#333333" stroke="#000000" pointer-events="all"/><path d="M 235 92 L 255 72 L 265 72 L 245 92 Z" fill="#333333" stroke="#000000" stroke-miterlimit="10" transform="translate(250,0)scale(-1,1)translate(-250,0)" pointer-events="all"/><path d="M 223 49 L 232 19 L 237 19 L 246 49 Z" fill="#333333" stroke="none" transform="rotate(180,234.5,34)" pointer-events="all"/><path d="M 244 92 L 264 72 L 274 72 L 254 92 Z" fill="#333333" stroke="#000000" stroke-miterlimit="10" transform="translate(259,0)scale(-1,1)translate(-259,0)" pointer-events="all"/><rect x="232" y="39" width="30" height="40" rx="15" ry="15" fill="#333333" stroke="none" pointer-events="all"/><rect x="132" y="39" width="120" height="40" rx="3.6" ry="3.6" fill="#cc0000" stroke="none" pointer-events="all"/><rect x="126" y="9" width="56" height="70" fill="#333333" stroke="none" pointer-events="all"/><rect x="137.5" y="16" width="33" height="27" rx="2.97" ry="2.97" fill="#d4e1f5" stroke="none" pointer-events="all"/><ellipse cx="152" cy="73" rx="20" ry="20" fill="#000000" stroke="#000000" pointer-events="all"/><ellipse cx="206" cy="83" rx="10" ry="10" fill="#333333" stroke="none" pointer-events="all"/><ellipse cx="184" cy="83" rx="10" ry="10" fill="#333333" stroke="none" pointer-events="all"/><ellipse cx="228" cy="83" rx="10" ry="10" fill="#333333" stroke="none" pointer-events="all"/><ellipse cx="152" cy="73" rx="15.499999999999998" ry="15.499999999999998" fill="#666666ff" stroke="none" pointer-events="all"/><ellipse cx="184" cy="83" rx="5" ry="5" fill="#000000" stroke="#000000" pointer-events="all"/><ellipse cx="206" cy="83" rx="5" ry="5" fill="#000000" stroke="#000000" pointer-events="all"/><ellipse cx="228" cy="83" rx="5" ry="5" fill="#000000" stroke="#000000" pointer-events="all"/><rect x="178" y="81" width="50" height="4" fill="#000000" stroke="none" pointer-events="all"/><path d="M 136.5 73 L 167.5 73" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="stroke"/><path d="M 152 57.5 L 152 88.5" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="stroke"/><path d="M 146.34 67.34 L 162.96 83.96" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="stroke"/><path d="M 141.04 83.96 L 162.96 62.04" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="stroke"/><path d="M 141.04 62.04 L 157.66 78.66" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" pointer-events="stroke"/><ellipse cx="152" cy="73" rx="8" ry="8" fill="#000000" stroke="#000000" pointer-events="all"/><rect x="151" y="76" width="28" height="4" fill="#000000" stroke="none" transform="rotate(20,165,78)" pointer-events="all"/><rect x="223" y="12" width="23" height="11" rx="1.65" ry="1.65" fill="#cc0000" stroke="none" pointer-events="all"/><path d="M 190 22 Q 197 22 197 27.5 Q 197 33 190 33 Z" fill="#000000" stroke="none" transform="rotate(270,193.5,27.5)" pointer-events="all"/><rect x="0" y="39" width="120" height="41" rx="3.69" ry="3.69" fill="#666666" stroke="none" pointer-events="all"/><ellipse cx="102" cy="82" rx="10" ry="10" fill="#333333" stroke="none" pointer-events="all"/><ellipse cx="102" cy="82" rx="5" ry="5" fill="#000000" stroke="#000000" pointer-events="all"/><ellipse cx="18" cy="82" rx="10" ry="10" fill="#333333" stroke="none" pointer-events="all"/><ellipse cx="18" cy="82" rx="5" ry="5" fill="#000000" stroke="#000000" pointer-events="all"/><ellipse cx="38" cy="82" rx="10" ry="10" fill="#333333" stroke="none" pointer-events="all"/><ellipse cx="38" cy="82" rx="5" ry="5" fill="#000000" stroke="#000000" pointer-events="all"/><ellipse cx="82" cy="82" rx="10" ry="10" fill="#333333" stroke="none" pointer-events="all"/><ellipse cx="82" cy="82" rx="5" ry="5" fill="#000000" stroke="#000000" pointer-events="all"/></g></svg>';
+        let haySVG = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="16px" height="16px" viewBox="-0.5 -0.5 16 16" style="background-color: rgb(255, 255, 255);"><defs/><g><ellipse cx="8" cy="8" rx="7.5" ry="7.5" fill="none" stroke="#BAA80B" stroke-dasharray="1 2" pointer-events="all"/><ellipse cx="8" cy="8" rx="7.5" ry="7.5" fill="#dbc60d" stroke="#BAA80B" pointer-events="all"/><ellipse cx="8" cy="8" rx="5" ry="5" fill="none" stroke="#A6960A" pointer-events="all"/><ellipse cx="8" cy="8" rx="2" ry="2" fill="none" stroke="#A6960A" pointer-events="all"/><ellipse cx="8" cy="8" rx="3.75" ry="3.75" fill="none" stroke="#A6960A" pointer-events="all"/><ellipse cx="8" cy="8" rx="0.625" ry="0.625" fill="none" stroke="#A6960A" pointer-events="all"/></g></svg>';
+
         for (let i = 0; i < trains.length; i++) {
             let train = trains[i];
             let x = train.position.x;
             let y = train.position.y;
-            let group = this.#draw.group();
+            let group = this.draw.group();
 
+            let j = (Number(train.value) > 10) ? 10 : Number(train.value);
+
+            // drawing hay
+            for (j; j > 0; j--) {
+                var xOffset = 3;
+                var yOffset = 13;
+                var radius = 15;
+                if (j == 1 || j == 2 || j == 3 || j == 4) {
+                    xOffset = 3 + radius * ((j - 1) % 4);
+                }
+                else if (j == 5 || j == 6 || j == 7) {
+                    yOffset = yOffset - radius / 2;
+                    xOffset = xOffset + radius / 2 + radius * (j % 5);
+                } else if (j == 8 || j == 9) {
+                    yOffset = yOffset - radius;
+                    xOffset = xOffset + radius + radius * (j % 8);
+                } else {
+                    yOffset = yOffset - 1.5 * radius;
+                    xOffset = xOffset + 1.5 * radius;
+                }
+                group.add(SVG(haySVG).move(xOffset, yOffset))
+            }
             group.addClass('train-' + train.id);
-            group.rect(50, 20).fill('#6885c4').move(x, y);
+            group.svg(lokSVG).translate(x, y);
+
             group.text(String(train.value)).font({
                 family: 'Helvetica'
-                , size: 15
+                , size: 17
                 , anchor: 'middle'
                 , leading: '1.5em'
-            }).move(train.position.x + 20, train.position.y);
-
-            // drawing cars
-            let modulo = Number(train.value) % 5;
-            let fullCarsNumber = Math.floor(Number(train.value) / 5);
-            let carsNumber = fullCarsNumber + ((modulo == 0) ? 0 : 1);
-
-            for (let j = 0; j < carsNumber; j++) {
-                x = x - 42;
-
-                // new car
-                group.rect(40, 20).fill('#4251f5').move(x, y);
-
-                let bars = (fullCarsNumber <= j) ? modulo : 5;
-
-                // new bar
-                for (let k = 0; k < bars; k++) {
-                    group.rect(40, 3).fill('#6e3018').move(x, y + 17 - 4 * k);
-                }
-            }
+            }).fill("#fff").translate(32, 14);
 
             if (train instanceof JoinedTrain) {
                 group.hide();
+            } else {
+                group.translate(- 65, -5);
             }
         }
     }
 
-    #drawStations(stations) {
-        let stationSmallSVG = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="105px" height="69px" viewBox="-0.5 -0.5 105 69"><defs/><g><rect x="4" y="32.4" width="96" height="36" fill="#d9c4a0" stroke="none" pointer-events="all"/><path d="M 0 40.4 L 8 12.4 L 96 12.4 L 104 40.4 Z" fill="#3d2a26" stroke="none" pointer-events="all"/><path d="M 39.6 -22 L 63.6 12 L 39.6 46 Z" fill="#3d2a26" stroke="none" transform="rotate(-90,51.6,12)" pointer-events="all"/><ellipse cx="51.6" cy="24.4" rx="10" ry="10" fill="#ffffff" stroke="#000000" pointer-events="all"/><rect x="40.9" y="13.9" width="21.4" height="21" fill="none" stroke="none" pointer-events="all"/><path d="M 56.44 28.05 C 56.64 28.22 56.67 28.54 56.46 28.78 C 56.3 28.94 56.01 29.03 55.77 28.86 L 51.09 25.34 C 50.99 25.23 50.89 25.13 50.9 24.91 L 50.9 17.22 C 50.9 16.91 51.18 16.7 51.44 16.7 C 51.77 16.7 51.97 17 51.97 17.22 L 51.97 24.68 Z M 51.65 33.16 C 56.93 33.16 60.52 28.8 60.52 24.41 C 60.52 19.07 56.04 15.65 51.63 15.65 C 45.77 15.65 42.69 20.63 42.69 24.17 C 42.69 30.13 47.52 33.16 51.65 33.16 Z M 51.55 34.9 C 46.27 34.9 41.03 30.94 40.9 24.28 C 40.9 19.17 45.28 13.9 51.56 13.9 C 57.08 13.9 62.3 18.1 62.3 24.46 C 62.3 30.1 57.66 34.9 51.55 34.9 Z" fill="#000000" stroke="none" pointer-events="all"/><rect x="68" y="44.4" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="84" y="44.4" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><path d="M 39.6 47.2 Q 64.4 47.2 64.4 56 Q 64.4 64.8 39.6 64.8 Z" fill="#3d2a26" stroke="none" transform="rotate(-90,52,56)" pointer-events="all"/><rect x="12" y="44" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="28" y="44" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/></g></svg>';
-        let stationBigSVG = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="157px" height="111px" viewBox="-0.5 -0.5 157 111"><defs/><g><path d="M 102.04 -11.27 L 129.94 13.85 L 102.04 38.97 Z" fill="#3d2a26" stroke="none" transform="rotate(-90,115.99,13.85)" pointer-events="all"/><rect x="84" y="41.6" width="64" height="68" fill="#d9c4a0" stroke="none" pointer-events="all"/><rect x="4" y="73.6" width="80.4" height="36" fill="#d9c4a0" stroke="none" pointer-events="all"/><path d="M 76 45.6 L 84 25.6 L 148 25.6 L 156 45.6 Z" fill="#3d2a26" stroke="none" pointer-events="all"/><ellipse cx="116" cy="28.2" rx="13.200000000000001" ry="13.200000000000001" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="all"/><path d="M 0 81.6 L 8 61.6 L 84.4 61.6 L 92.4 81.6 Z" fill="#3d2a26" stroke="none" pointer-events="all"/><rect x="112" y="53.6" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="96" y="53.6" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="128" y="53.6" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="91.6" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="132" y="85.6" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="112" y="85.2" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="27.2" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="75.2" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="43.2" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="59.2" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><path d="M 102 85.6 Q 130 85.6 130 95.6 Q 130 105.6 102 105.6 Z" fill="#3d2a26" stroke="none" transform="rotate(-90,116,95.6)" pointer-events="all"/><rect x="12" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/></g></svg>';
+    drawStations(stations) {
+        let stationSmallSVG = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="110px" height="70px" viewBox="-0.5 -0.5 105 69"><defs/><g><rect x="4" y="32.4" width="96" height="36" fill="#9e5a33" stroke="none" pointer-events="all"/><path d="M 0 40.4 L 8 12.4 L 96 12.4 L 104 40.4 Z" fill="#3d2a26" stroke="none" pointer-events="all"/><path d="M 39.6 -22 L 63.6 12 L 39.6 46 Z" fill="#3d2a26" stroke="none" transform="rotate(-90,51.6,12)" pointer-events="all"/><ellipse cx="51.6" cy="24.4" rx="10" ry="10" fill="#ffffff" stroke="#000000" pointer-events="all"/><rect x="40.9" y="13.9" width="21.4" height="21" fill="none" stroke="none" pointer-events="all"/><path d="M 56.44 28.05 C 56.64 28.22 56.67 28.54 56.46 28.78 C 56.3 28.94 56.01 29.03 55.77 28.86 L 51.09 25.34 C 50.99 25.23 50.89 25.13 50.9 24.91 L 50.9 17.22 C 50.9 16.91 51.18 16.7 51.44 16.7 C 51.77 16.7 51.97 17 51.97 17.22 L 51.97 24.68 Z M 51.65 33.16 C 56.93 33.16 60.52 28.8 60.52 24.41 C 60.52 19.07 56.04 15.65 51.63 15.65 C 45.77 15.65 42.69 20.63 42.69 24.17 C 42.69 30.13 47.52 33.16 51.65 33.16 Z M 51.55 34.9 C 46.27 34.9 41.03 30.94 40.9 24.28 C 40.9 19.17 45.28 13.9 51.56 13.9 C 57.08 13.9 62.3 18.1 62.3 24.46 C 62.3 30.1 57.66 34.9 51.55 34.9 Z" fill="#000000" stroke="none" pointer-events="all"/><rect x="68" y="44.4" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="84" y="44.4" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><path d="M 39.6 47.2 Q 64.4 47.2 64.4 56 Q 64.4 64.8 39.6 64.8 Z" fill="#3d2a26" stroke="none" transform="rotate(-90,52,56)" pointer-events="all"/><rect x="12" y="44" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="28" y="44" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/></g></svg>';
+        let stationBigSVG = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="160px" height="125px" viewBox="-0.5 -0.5 157 111"><defs/><g><path d="M 102.04 -11.27 L 129.94 13.85 L 102.04 38.97 Z" fill="#3d2a26" stroke="none" transform="rotate(-90,115.99,13.85)" pointer-events="all"/><rect x="84" y="41.6" width="64" height="68" fill="#9e5a33" stroke="none" pointer-events="all"/><rect x="4" y="73.6" width="80.4" height="36" fill="#9e5a33" stroke="none" pointer-events="all"/><path d="M 76 45.6 L 84 25.6 L 148 25.6 L 156 45.6 Z" fill="#3d2a26" stroke="none" pointer-events="all"/><ellipse cx="116" cy="28.2" rx="13.200000000000001" ry="13.200000000000001" fill="#ffffff" stroke="#000000" stroke-width="2" pointer-events="all"/><path d="M 0 81.6 L 8 61.6 L 84.4 61.6 L 92.4 81.6 Z" fill="#3d2a26" stroke="none" pointer-events="all"/><rect x="112" y="53.6" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="96" y="53.6" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="128" y="53.6" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="91.6" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="132" y="85.6" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="112" y="85.2" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="27.2" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="75.2" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="43.2" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><rect x="59.2" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/><path d="M 102 85.6 Q 130 85.6 130 95.6 Q 130 105.6 102 105.6 Z" fill="#3d2a26" stroke="none" transform="rotate(-90,116,95.6)" pointer-events="all"/><rect x="12" y="84.8" width="8" height="12" rx="1.2" ry="1.2" fill="#dae8fc" stroke="none" pointer-events="all"/></g></svg>';
 
         for (let i = 0; i < stations.length; i++) {
             let station = stations[i];
             SVG.find('.small-station-' + station.id).remove();
             SVG.find('.big-station-' + station.id).remove();
-            let group = this.#draw.group();
+            let group = this.draw.group();
             group.addClass('station');
             if (station.subTrains.length == 2) {
+                station.bigStation = true;
                 group.addClass('big-station-' + station.id);
-                group.on('click', function () { this.#showDropdown(station) }.bind(this));
-                group.svg(stationBigSVG).move(station.position.x - 70, station.position.y - 70);
+                group.on('click', function () { this.showSignButtons(station) }.bind(this));
+                group.svg(stationBigSVG).move(station.position.x - 40, station.position.y - 55);
                 let signPosition;
                 switch (station.sign) {
-                    case '*': signPosition = { x: station.position.x + 39, y: station.position.y - 56 }; break;
-                    case '-': signPosition = { x: station.position.x + 42, y: station.position.y - 62 }; break;
-                    case '/': signPosition = { x: station.position.x + 41, y: station.position.y - 60 }; break;
-                    default: signPosition = { x: station.position.x + 38, y: station.position.y - 60 };
+                    case '*': signPosition = { x: station.position.x + 71, y: station.position.y - 40 }; break;
+                    case '-': signPosition = { x: station.position.x + 74, y: station.position.y - 47 }; break;
+                    case '/': signPosition = { x: station.position.x + 73, y: station.position.y - 45 }; break;
+                    default: signPosition = { x: station.position.x + 70, y: station.position.y - 45 };
                 }
                 group.text(station.sign).font({
                     family: 'Helvetica'
@@ -557,81 +871,115 @@ class Game {
                 }).move(signPosition.x, signPosition.y);
 
             } else {
-                group.on('click', function () { this.#connectTrains(station.id); }.bind(this));
+                station.bigStation = false;
+
+                group.on('click', function () { this.connectTrains(station); }.bind(this));
                 group.addClass('small-station-' + station.id);
-                group.svg(stationSmallSVG).move(station.position.x - 30, station.position.y - 30);
+                group.svg(stationSmallSVG).translate(station.position.x - 10, station.position.y - 10);
             }
         }
     }
-    // TODO clear canvas
-    #clearCanvas() {
+
+    clearCanvas() {
         $('#canvas').html("");
-        $('#result').text("");
-        $("#dropdown").hide();
-        $("#overlay").hide();
+        $("#signButtons").hide();
+        $("#signOverlay").hide();
+        
+        $("#sadCow").hide();
+        $("#illCow").hide();
+        $("#happyCow").hide();
     }
 
     // loading the next round with a new equation
     nextRound() {
         console.log("Next round")
-        this.loadEquation(this.#equations[Math.floor((this.#equations.length - 1) * Math.random() + 1)]);
+        this.stopPlayMode();
+        $("#disablingActionsOverlay").hide();
+        this.loadEquation(this.equations[Math.floor((this.equations.length - 1) * Math.random() + 1)]);
     }
 
     // reloading the canvas
     reset() {
-        this.loadEquation(this.#equation);
+        this.stopPlayMode();
+        this.loadEquation(this.equation);
     }
 
     giveHint() {
         console.log("Hint for user should be displayed!");
     }
 
+    startStopPlayMode() {
+        if (this.isPlayModeActive) {
+            this.stopPlayMode();
+        } else {
+            this.startPlayMode();
+        }
+    }
+
+    stopPlayMode() {
+        window.timestamp = new Date;
+        this.isPlayModeActive = !this.isPlayModeActive;
+        $("#startStopButton")[0].innerText = "Los geht's";
+        $("#disablingActionsOverlay").hide();
+        $('#feedbackOverlay').hide();
+        this.drawElements();
+    }
+
     startPlayMode() {
-        // creates now as well joined trains
-        this.#drawElements();
+        let finalTrain = this.trains.get(this.levelsMap.size - 1),
+            duration = 3500,
+            delay = 0,
+            totalDuration = 0;
+        finalTrain.finalTrain = true;
 
-        // TODO blocking click events
-
-        let trains = Array.from(this.#trains.values());
-
-        if ([...trains].filter(x => x instanceof JoinedTrain && x.subtrains == 0).length != 0) {
-            alert("Connect all trains!");
+        // check if everything is connected
+        if (this.checkUnconnectedTrains()) {
             return;
         }
 
-        let finalTrain = this.#trains.get(this.#levelsMap.size - 1);
-        let duration = 6000;
-        let delay = 0;
+        window.timestamp = new Date;
+        let localTimeStamp = window.timestamp;
+
+        this.isPlayModeActive = !this.isPlayModeActive;
+
+        $("#startStopButton")[0].innerText = "Anhalten";
+
+        // blocking click events
+        $("#disablingActionsOverlay").show();
+
+        // creates now as well joined trains
+        this.drawElements();
 
         // firstly trains from level 0 goes, later level 1, 2 ...
-        for (let i = 1; i < this.#levelsMap.size; i++) {
-            this.#levelsMap.get(i).forEach(train => {
+        for (let i = 1; i < this.levelsMap.size; i++) {
+            this.levelsMap.get(i).forEach(train => {
                 train.subTrains.forEach(subtrain => {
                     subtrain.move(train.position, duration - 1500, delay);
-                    $('#result').text(train.eqString);
-                    console.log('Subequation: ' + train.eqString);
                 });
+
             });
             delay += duration - 500;
+            totalDuration += duration + delay;
         }
-
-        // check solution correctness 
-        if (eval(this.#equation) == finalTrain.value) {
-            this.#points = this.#points + 10;
-            console.log("Correct!");
-            // TODO feedback popup 
-        } else {
-            console.log("Incorrect!");
-            // TODO explosion
-        }
-
-        let points = this.#points;
 
         setTimeout(function () {
-            finalTrain.move({ x: finalTrain.position.x + 250, y: finalTrain.position.y }, duration, 0);
-            $('#result').append("=" + finalTrain.value);
-            $('#points').text(points);
-        }, delay);
+            if (this.isPlayModeActive && (localTimeStamp == window.timestamp)) {
+                let isCorrect = false;
+                // check solution correctness 
+                if (eval(this.equation) == finalTrain.value) {
+                    this.points = this.points + 10;
+                    console.log("Correct!");
+                    isCorrect = true;
+                } else {
+                    console.log("Incorrect!");
+                }
+
+                let points = this.points;
+                finalTrain.move({ x: finalTrain.position.x + 250, y: finalTrain.position.y }, duration, 0);
+                $('#points').text(points);
+                this.showFeedback(finalTrain.value);
+            }
+        }.bind(this), delay);
     }
 }
 
@@ -639,11 +987,14 @@ class Game {
 class GameVersion1 extends Game {
     constructor() {
         super();
+
     }
 
     loadEquation(equation) {
         super.loadEquation(equation);
-        $('#target').text(equation + "=" + eval(equation));
+        let rightSide = equation.match(/[=].*\d+/g)[0];
+        let leftSide = equation.replace(rightSide, '');
+        $('#target').text(leftSide + "=" + eval(leftSide));
     }
 }
 
@@ -661,7 +1012,6 @@ class GameVersion2 extends Game {
 
 let game = new GameVersion1;
 console.log(game);
-game.giveHint();
 
 /*
 0
@@ -672,4 +1022,6 @@ game.giveHint();
 
 such ids are needed for the correct final equation
 */
+    
+    
 </script>
