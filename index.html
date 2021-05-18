@@ -418,7 +418,7 @@ class JoinedTrain extends Train {
     }
 
     // after station added or connecting
-calculate() {
+    calculate() {
         if (this.sign.match(/^[*/+-]+$/) && this.subTrains.length == 2) {
             // right appearance in the equation
             this.subTrains.sort((x, y) => x.id - y.id);
@@ -426,14 +426,7 @@ calculate() {
             // not necessary brackets removed
             let train1 = this.subTrains[0];
             let train2 = this.subTrains[1];
-            if(!train1.bigStation) {
-                this.value = train2.value;
-            } else if(!train2.bigStation) {
-                this.value = train1.value;
-            } else {
-this.value = eval(train1.value + this.sign + train2.value);
-            }
-            
+            this.value = eval(train1.value + this.sign + train2.value);
         } else if (this.subTrains.length == 1) {
             this.value = this.subTrains[0].value;
         }
@@ -516,7 +509,7 @@ class Game {
     currentLevel = 1;
     constructor() {
         $("#infoOverlay").show();
-        this.loadEquation(this.equations[Math.round(Math.random() * this.equations.length - 1)]);
+        this.loadEquation(this.equations[Math.floor(Math.random() * this.equations.length)]);
     }
 
     // information about game
