@@ -99,7 +99,7 @@ li {
 }
 
 #startStopButton {
-    width     : 115px;
+    width     : 145px;
     text-align: center;
 }
 
@@ -192,7 +192,7 @@ li {
     display: none;
 }
 
-#feedbackRightSide {
+#feedbackLeftSide {
     margin: auto;
 }
 
@@ -201,15 +201,15 @@ li {
     margin: 20px auto;
 }
 
-#feedbackLeftSide {
+#feedbackRightSide {
     padding      : 11px;
     margin       : auto 20px;
     border-radius: 100%;
     background   : #ffffff70;
 }
 
-#feedbackLeftSide img {
-    height : 120px;
+#feedbackRightSide img {
+    height : 140px;
     display: none;
 }
 
@@ -323,7 +323,9 @@ li {
           Wenn du zu viel Futter lieferst, dann wird das Futter schlecht.
           <br>
           <br>
-          Klicke auf die richtigen Rechenoperationen unter den Stationen. Beginne mit jener Rechenoperation, die zuerst durchgeführt werden soll. Hast du alle Stationen verbunden, dann klicke auf "Los geht's", um das Heu zu liefern.
+          Klicke auf die richtigen Rechenoperationen unter den Stationen. Beginne mit jener Rechenoperation, die zuerst
+          durchgeführt werden soll. Hast du alle Stationen verbunden, dann klicke auf "Los geht's", um das Heu zu
+          liefern.
           <div id="startGameButton" class="game-button" onclick="game.hideStartInformation()">
             Start ➤
           </div>
@@ -334,7 +336,7 @@ li {
         <div class="game-button" onclick="game.nextRound()">Nächste Runde</div>
       </div>
       <div class="space-box">
-        <div class="game-text"><span id="level">Level: 0</span> | Punkte: <span id="points">0</span></div>
+        <div class="game-text"><span id="level">Level: 1</span> | Punkte: <span id="points">0</span></div>
         <span class="game-text">Ziel: <span id="target"></span></span>
       </div>
       <div class="progressBarContainer">
@@ -362,13 +364,13 @@ li {
 
         <div class="feedback-container" id="feedbackContainer1">
           <div id="feedbackLeftSide">
+            <div class="feedback-text"></div>
+            <div class="game-button" id="feedbackNextButton" onclick="game.nextRound()">Nächste Runde</div>
+          </div>
+          <div id="feedbackRightSide">
             <img id="happyCow" src="1.svg">
             <img id="illCow" src="2.svg">
             <img id="sadCow" src="3.svg">
-          </div>
-          <div id="feedbackRightSide">
-            <div class="feedback-text"></div>
-            <div class="game-button" id="feedbackNextButton" onclick="game.nextRound()">Nächste Runde</div>
           </div>
         </div>
       </div>
@@ -506,6 +508,8 @@ class JoinedTrain extends Train {
         this.value = Math.trunc(this.value);
     }
 }
+  window.timestamp; // time of last play mode
+
 class Game {
     // all equations for the game TODO: Equations (numbers under 20 look still good)
     equations = [[
@@ -694,7 +698,7 @@ class Game {
         '8    -    2    +    20    =    26',
         '18    -    5    -    3    =    10',
     ],
-                 // level 3
+    //level 3
     [
         '11    +        3        +        7        +    2        =    23',
         '4    +        1        +        11        -    5        =    11',
@@ -840,7 +844,7 @@ class Game {
         let correctValue = eval(this.equation);
         let text = ""
         if (correctValue == result) {
-            text = result + " ist korrekt! Die Kühe sind zufrieden!";
+            text = result + " ist korrekt! Die Kühe sind zufrieden.";
             $("#happyCow").show();
             $('#startStopButton').hide();
             $('#feedbackNextButton').text("Nächste Runde");
@@ -849,20 +853,20 @@ class Game {
             $('#feedbackNextButton').show();
 
         } else if (correctValue > result) {
-            text = result + " stimmt leider nicht! Einige Kühe bleiben hungrig";
+            text = result + " stimmt leider nicht! Einige Kühe bleiben hungrig.";
             $("#sadCow").show();
             $('#feedbackNextButton').click(null);
             $('#feedbackNextButton').click(() => this.stopPlayMode());
-            $('#feedbackNextButton').text("Nochmal Versuchen");
+            $('#feedbackNextButton').text("Noch einmal versuchen");
             $('#feedbackNextButton').show();
 
 
         } else {
-            text = result + " stimmt leider nicht! Du hast zuviel geliefert und das Heu ist schlecht geworden.";
+            text = result + " stimmt leider nicht! Du hast zu viel geliefert und das Heu ist schlecht geworden.";
             $("#illCow").show();
             $('#feedbackNextButton').click(null);
             $('#feedbackNextButton').click(() => this.stopPlayMode());
-            $('#feedbackNextButton').text("Nochmal Versuchen");
+            $('#feedbackNextButton').text("Noch einmal versuchen");
             $('#feedbackNextButton').show();
         }
         $('#feedbackContainer1 .feedback-text').text(text);
@@ -1024,14 +1028,11 @@ class Game {
 
         // get 2 adjacent trains from the previous level
         let adjacentTrains = this.levelsMap.get(targetLevel - 1).filter((x, index) => (index == indexOfTargetTrain || index == indexOfTargetTrain + 1));
-        console.log(adjacentTrains);
         if (targetTrainId > originId) {
             adjacentTrains = [adjacentTrains[1]];
-            console.log(adjacentTrains);
 
         } else if (targetTrainId < originId) {
             adjacentTrains = [adjacentTrains[0]];
-            console.log(adjacentTrains);
         }
 
         adjacentTrains.forEach(adjacentTrain => {
@@ -1252,10 +1253,6 @@ class Game {
 
     // loading the next round with a new equation
     nextRound() {
-        if (this.isPlayModeActive == true) {
-            return;
-        };
-
         console.log("Next round")
         this.stopPlayMode();
         //$("#disablingActionsOverlay").hide();
@@ -1344,12 +1341,14 @@ class Game {
                     this.streak++;
                     this.badStreak = 0;
                     if (this.streakthreshold[1] == this.streak) {
-                        if (this.level < this.equations.length - 1) {
-                            this.level++;
-                        }
                         this.streakthreshold[1] = this.streakthreshold[0] + this.streakthreshold[1];
                         this.streakthreshold[0] = this.streakthreshold[1] - this.streakthreshold[0];
                         this.streak = 0;
+                        if (this.level < this.equations.length - 1) {
+                            this.level++;
+                        } else {
+                            this.streak = this.streakthreshold[1];
+                        }
                     }
                     console.log("Correct!");
                     isCorrect = true;
@@ -1366,7 +1365,7 @@ class Game {
                     }*/
 
                     console.log("Incorrect!");
-                    $("#startStopButton")[0].innerText = "Nochmal";
+                    $("#startStopButton")[0].innerText = "Noch einmal";
                     DisplayPoints(-5);
                     this.points -= 5;
                 }
@@ -1374,7 +1373,7 @@ class Game {
                 let points = this.points;
                 finalTrain.move({ x: finalTrain.position.x + 250, y: finalTrain.position.y }, duration, 0);
                 $('#points').text(points);
-                $('#level').text(`Level: ${this.level}`);
+                $('#level').text(`Level: ${(this.level + 1)}`);
                 let progress = this.streak / (this.streakthreshold[1] / 100);
                 if (progress > 100) {
                     progress = 100;
@@ -1387,7 +1386,6 @@ class Game {
                 }
                 $('.badProgressBar').width(`${badprogress}%`);
                 this.showFeedback(finalTrain.value);
-                this.isPlayModeActive = false;
             }
         }.bind(this), delay);
     }
